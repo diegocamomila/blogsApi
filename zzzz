@@ -1,0 +1,20 @@
+docker container stop $(docker container ls -a -q) 
+&& docker system prune -a -f --volumes 
+
+
+docker-compose up -d -- build
+
+docker exec -it blogs_api bash
+
+
+
+docker container ls -a -q
+ 
+ docker-compose down
+
+
+ npm run start:test
+ npm test req07
+
+
+ npx sequelize model:generate --name post.categories --attributes postId:integer 
