@@ -18,3 +18,6 @@ docker container ls -a -q
 
 
  npx sequelize model:generate --name post.categories --attributes postId:integer 
+ npx sequelize model:generate --name User --attributes displayName:string 
+ npx sequelize model:generate --name BlogPosts --attributes title:string 
+ npx sequelize model:generate --name Categories --attributes name:string
