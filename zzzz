@@ -16,8 +16,23 @@ docker container ls -a -q
  npm run start:test
  npm test req07
 
-
+# crio o model e o migrations
  npx sequelize model:generate --name post.categories --attributes postId:integer 
  npx sequelize model:generate --name User --attributes displayName:string 
+#   pormais que eu criei name como User nas tabela migrations ficou com s Users 
+#   mas model se referencia com User e seed como Users
  npx sequelize model:generate --name BlogPosts --attributes title:string 
  npx sequelize model:generate --name Categories --attributes name:string
+
+# crio os seed
+ npx sequelize seed: --name Users 
+
+ # JSdocks para dar a sugestoes
+/**
+ * @param {import('sequelize').Sequelize} sequelize 
+ * @param {import('sequelize').DataTypes} dataTypes 
+ * @returns 
+ */
+
+ npx sequelize db:migrate
+
