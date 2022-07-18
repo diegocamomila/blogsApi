@@ -1,8 +1,7 @@
-docker container stop $(docker container ls -a -q) 
-&& docker system prune -a -f --volumes 
+docker container stop $(docker container ls -a -q) && docker system prune -a -f --volumes 
 
 
-docker-compose up -d -- build
+docker-compose up -d --build
 
 docker exec -it blogs_api bash
 
@@ -12,6 +11,7 @@ docker container ls -a -q
  
  docker-compose down
 
+ npm run kill:test
 
  npm run start:test
  npm test req07
@@ -26,6 +26,7 @@ docker container ls -a -q
 
 # crio os seed
  npx sequelize seed: --name Users 
+ 
 
  # JSdocks para dar a sugestoes
 /**
@@ -34,5 +35,22 @@ docker container ls -a -q
  * @returns 
  */
 
- npx sequelize db:migrate
+npx sequelize-cli init
 
+
+npx sequelize db:create  # cria banco
+npx sequelize db:migrate  # roda as migrations
+#Para executar o seed, basta rodarmos o comando abaixo
+npx sequelize db:seed:all
+
+
+
+# app.use((req, _res, next) => {
+#   console.log('req.method:', req.method);
+#   console.log('req.path:', req.path);
+#   console.log('req.params:', req.params);
+#   console.log('req.query:', req.query);
+#   console.log('req.headers:', req.headers);
+#   console.log('req.body:', req.body);
+#   next();
+# });
