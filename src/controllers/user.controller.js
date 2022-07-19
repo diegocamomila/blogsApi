@@ -1,9 +1,9 @@
 const userServices = require('../services/user.service');
 
-const login = async (req, res, next) => {
+const user = async (req, res, next) => {
   const { displayName, email, password, image } = req.body;
   try {
-    const token = await userServices.login(displayName, email, password, image);
+    const token = await userServices.user(displayName, email, password, image);
     res.status(2001).json({ token });
   } catch (err) {
     next(err);
@@ -11,5 +11,5 @@ const login = async (req, res, next) => {
 };
 
 module.exports = {
-  login,
+  user,
 };
