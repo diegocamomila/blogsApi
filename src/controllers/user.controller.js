@@ -10,6 +10,15 @@ const user = async (req, res, next) => {
   }
 };
 
+const get = async (req, res, next) => {
+  try {
+    const allUser = await userService.getAllUser();
+    res.status(200).json({ allUser });
+  } catch (err) {
+    next(err);
+  }
+};
 module.exports = {
   user,
+  get,
 };
