@@ -1,5 +1,5 @@
 const userService = require('../services/user.service');
-const getService = require('../services/get.services');
+const getService = require('../services/get.service');
 
 const user = async (req, res, next) => {
   const { displayName, email, password, image } = req.body;
