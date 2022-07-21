@@ -11,10 +11,10 @@ const user = async (req, res, next) => {
   }
 };
 
-const get = async (req, res, next) => {
+const get = async (_req, res, next) => {
   try {
     const allUser = await getService.getAllUser();
-    res.status(200).json({ allUser });
+    return res.status(200).json(allUser);
   } catch (err) {
     next(err);
   }
