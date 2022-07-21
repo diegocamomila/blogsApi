@@ -1,35 +1,39 @@
 const Joi = require('joi');
-const jwtToken = require('./newToken.service');
 const { User } = require('../database/models');
+const jwtToken = require('./newToken.service');
 
+// https://stackoverflow.com/questions/57972358/joi-email-validation
 const schema = Joi.object({
-  email: Joi.string().email().required(),
-  password: Joi.string().required(),
+  displayName: Joi.string().min(8).required(),
+  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
+  password: Joi.string().min(6).required(),
+  image: Joi.string().required(),
 });
 
-const login = async (email, password) => {
-  const { error } = schema.validate({ email, password });
-  
+const checkUser = async (displayName, email, password, image) => {
+  const { error } = schema.validate({ displayName, email, password, image });
+
   if (error) {
-    const err = new Error('Some required fields are missing');
+    const err = new Error(error.message);
     err.code = 'BadRequest';
     throw err;
   }
-  
-  const userLogin = await User.findOne({ where: { email } });
-  
-  if (!userLogin || userLogin.password !== password) {
-    const err = new Error('Invalid fields');
-    err.code = 'BadRequest';
-    throw err;
-  } 
 
-  const token = jwtToken.newToken(email, userLogin.password,
-     userLogin.displayName, userLogin.image);
+  const userExist = await User.findOne({ where: { email } });
+
+  if (userExist) {
+    const err = new Error('User already registered');
+    err.code = 'Conflict';
+    throw err;
+  }
+
+  await User.create({ displayName, email, password, image });
+
+  const token = jwtToken.newToken(email);
 
   return token;
 };
 
-module.exports = { 
-  login,
+module.exports = {
+   checkUser,
 };
