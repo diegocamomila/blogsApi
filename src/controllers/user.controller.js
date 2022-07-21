@@ -1,4 +1,5 @@
 const userService = require('../services/user.service');
+const getService = require('../services/get.services');
 
 const user = async (req, res, next) => {
   const { displayName, email, password, image } = req.body;
@@ -12,7 +13,7 @@ const user = async (req, res, next) => {
 
 const get = async (req, res, next) => {
   try {
-    const allUser = await userService.getAllUser();
+    const allUser = await getService.getAllUser();
     res.status(200).json({ allUser });
   } catch (err) {
     next(err);
