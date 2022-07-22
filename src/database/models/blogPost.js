@@ -7,6 +7,8 @@
  * @returns 
  */
 
+ // https://github.com/sequelize/sequelize/issues/645#issuecomment-18461231
+ 
 const BlogPost = (sequelize, DataTypes) => {
   const BlogPost = sequelize.define("BlogPost", {
     id: {
@@ -17,6 +19,8 @@ const BlogPost = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     userId: DataTypes.INTEGER,
+    published: {type:DataTypes.DATE, defaultValue:Date.now()},
+    updated: {type:DataTypes.DATE, defaultValue:Date.now()},
   }, 
   {
     timestamps: false,
