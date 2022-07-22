@@ -1,5 +1,6 @@
 const userService = require('../services/user.service');
 const getService = require('../services/get.service');
+const getByIdService = require('../services/getById.service');
 
 const user = async (req, res, next) => {
   const { displayName, email, password, image } = req.body;
@@ -19,7 +20,19 @@ const get = async (_req, res, next) => {
     next(err);
   }
 };
+
+const getById = async (req, res, next) => {
+  const { id } = req.params;
+  try {    
+    const findUser = await getByIdService.getById(id);
+    return res.status(200).json(findUser);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   user,
   get,
+  getById,
 };

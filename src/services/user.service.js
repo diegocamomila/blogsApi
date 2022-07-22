@@ -34,17 +34,6 @@ const checkUser = async (displayName, email, password, image) => {
   return token;
 };
 
-const getAllUser = async () => {
-  const allUser = await User
-  .findAll({ attributes: { exclude: ['password'] } });
-    // attributes: ['id', 'displayName', 'email', 'image'],
-    // attributes: { exclude: ['password'] },
-    // atributes: { include: ['id', 'displayName', 'email', 'image'] },
-
-  return allUser;
-};
-
 module.exports = {
    checkUser,
-   getAllUser,
 };
