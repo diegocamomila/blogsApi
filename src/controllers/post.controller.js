@@ -1,4 +1,5 @@
 const postService = require('../services/post.service');
+const postAll = require('../services/postAll.service');
 
 const post = async (req, res, next) => {
   const { title, content, categoryIds } = req.body;
@@ -10,6 +11,15 @@ const post = async (req, res, next) => {
   }
 };
 
+const getAll = async (req, res, next) => {
+  try {
+    const posts = await postAll();
+    return res.status(200).json(posts);
+  } catch (err) {
+    next(err); 
+  }
+};
 module.exports = {
   post,
+  getAll,
 };
