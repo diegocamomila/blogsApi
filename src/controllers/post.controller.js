@@ -1,11 +1,11 @@
-const postService = require('../services/post.service');
+const criatePostService = require('../services/criatePost.service');
 const postAll = require('../services/postAll.service');
 const postId = require('../services/postId.service');
 
 const post = async (req, res, next) => {
   const { title, content, categoryIds } = req.body;
   try {
-    const blogPost = await postService.criateBlogPost(title, content, categoryIds);
+    const blogPost = await criatePostService.create(title, content, categoryIds);
     res.status(201).json(blogPost);
   } catch (err) {
     next(err);
@@ -31,16 +31,14 @@ const getId = async (req, res, next) => {
   }
 };
 
-// const updated = async (req, res, next) => {
-//   const { title, content } = req.body;
-//   const { id } = req.params;
-//   const userEmail = req.user;
-
+// const putId = async (req, res, next) => {
 //   try {
-//     const result = await postServices.updated(title, content, id, userEmail);
-//     res.status(200).json(result);
-//   } catch (err) {
-//     next(err);
+//     const { title, content } = req.body;
+
+//     const updated = posts.find((post) => id === post.id);
+//     res.status(200).json(updated);
+//   } catch (error) {
+//     next(error);
 //   }
 // };
 
@@ -48,5 +46,5 @@ module.exports = {
   post,
   getAll,
   getId,
-  // updated,
+  // putId,
 };
